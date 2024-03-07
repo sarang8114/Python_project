@@ -10,8 +10,6 @@ django.setup()
 
 from organ_donation_app.models import Donor
 
-
-
 # Donor registration screen
 
 def RegisterForOrganDonation():
