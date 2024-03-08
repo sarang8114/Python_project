@@ -37,7 +37,7 @@ def RegisterForOrganDonation():
         new_donor = Donor(firstName=fname,middleName=mname,lastName=lname,ageOfDonor=age,contact_number=contact,
                           emailIdOfDonor=email,addressOfDonor=address,genderOfDonor=gender,bloodGrp=blood_grp,
                           organ_to_donate=organ,medicalConditions=medCondition,previousSurgery=prevSurgeries,
-                          medicationEntries=medEntries,allergyEntries=allergies,smokingStatus=smokingCheck,
+                          medicationEntries=medEntries,allergyEntries=allergies,smokingPercentage=smokingCheck,
                           alcoholConsumptionStatus=alcConsumptionStatus)
         new_donor.save()
         messagebox.showinfo("Donor Added", f"{fname} has been successfully added to database!")
