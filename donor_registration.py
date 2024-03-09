@@ -32,13 +32,12 @@ def RegisterForOrganDonation():
         medEntries=medications_entry.get("1.0", END).strip()
         allergies=allergies_entry.get("1.0", END).strip()
         smokingCheck=lifestyle_info_used()
-        alcConsumptionStatus=alcoholConsumption.get()
         
         new_donor = Donor(firstName=fname,middleName=mname,lastName=lname,ageOfDonor=age,contact_number=contact,
                           emailIdOfDonor=email,addressOfDonor=address,genderOfDonor=gender,bloodGrp=blood_grp,
                           organ_to_donate=organ,medicalConditions=medCondition,previousSurgery=prevSurgeries,
-                          medicationEntries=medEntries,allergyEntries=allergies,smokingPercentage=smokingCheck,
-                          alcoholConsumptionStatus=alcConsumptionStatus)
+                          medicationEntries=medEntries,allergyEntries=allergies,smokingStatus=smokingCheck,
+                          )
         new_donor.save()
         messagebox.showinfo("Donor Added", f"{fname} has been successfully added to database!")
         # window1.after(100, window1.destroy)
@@ -68,9 +67,9 @@ def RegisterForOrganDonation():
     # function to check lifestyle status
     def lifestyle_info_used():
         val=smoking.get()
-        if val==1:
+        if val==0:
             return 'Regular'
-        elif val==2:
+        elif val==1:
             return 'Occassional'
         else:
             return 'Never'
@@ -92,12 +91,12 @@ def RegisterForOrganDonation():
 
     # Frame of Donor Form
 
-    frame1 = Frame(window1, width=700, height=1400, highlightbackground='black', highlightthickness=1.5)
-    frame1.grid(padx=200, pady=10)
+    frame1 = Frame(window1, width=300, height=900, highlightbackground='black', highlightthickness=1.5)
+    frame1.grid(padx=90, pady=20)
 
     # Section 1 - Personal Information
 
-    Label(frame1, text='Personal information', font=('Helvetica', 10, 'bold')).grid(row=0, columnspan=10,pady=(10,0))
+    Label(frame1, text='Personal information', font=('Helvetica', 10, 'bold')).grid(row=0, columnspan=10)
     Label(frame1, text='First Name').grid(row=3)
     Label(frame1, text='Middle Name').grid(row=4)
     Label(frame1, text='Last Name').grid(row=5)
@@ -109,28 +108,28 @@ def RegisterForOrganDonation():
 
     global gender_var
     gender_var = IntVar()
-    Radiobutton(frame1, text='Male', value=0,command=gender_radio_used).grid(row=11, column=1,sticky='w', pady=(5, 0))
-    Radiobutton(frame1, text='Female', value=1,command=gender_radio_used).grid(row=11, column=2,sticky='w', pady=(5, 0))
-    Radiobutton(frame1, text='Other',value=2,command=gender_radio_used).grid(row=11, column=3,sticky='w',pady=(5, 0))
+    Radiobutton(frame1, text='Male', variable=gender_var,value=0,command=gender_radio_used).grid(row=11, column=1,sticky='w')
+    Radiobutton(frame1, text='Female',variable=gender_var, value=1,command=gender_radio_used).grid(row=11, column=2,sticky='w')
+    Radiobutton(frame1, text='Other',variable=gender_var,value=2,command=gender_radio_used).grid(row=11, column=3,sticky='w')
 
     e1 = Entry(frame1,width=60)
-    e1.grid(row=3, column=1,sticky='w',pady=(5, 0))
+    e1.grid(row=3, column=1,sticky='w',pady=(3, 0))
     e2 = Entry(frame1,width=60)
-    e2.grid(row=4, column=1,sticky='w',pady=(5, 0))
+    e2.grid(row=4, column=1,sticky='w',pady=(3, 0))
     e3 = Entry(frame1,width=60)
-    e3.grid(row=5, column=1,sticky='w',pady=(5, 0))
+    e3.grid(row=5, column=1,sticky='w',pady=(3, 0))
     e4=Spinbox(frame1,width=3,from_= 0, to = 100)
-    e4.grid(row=6,column=1,sticky='w',pady=(5, 0))
+    e4.grid(row=6,column=1,sticky='w',pady=(3, 0))
     e5 = Entry(frame1,width=60)
-    e5.grid(row=7, column=1,sticky='w',pady=(5, 0))
+    e5.grid(row=7, column=1,sticky='w',pady=(3, 0))
     e6 = Entry(frame1,width=60)
-    e6.grid(row=8, column=1,sticky='w',pady=(5, 0))
+    e6.grid(row=8, column=1,sticky='w',pady=(3, 0))
     e7 = Text(frame1, height=2, width=45)
-    e7.grid(row=9,column=1,sticky='w',pady=(5, 0))
+    e7.grid(row=9,column=1,sticky='w',pady=(3, 0))
 
     # Section 2 - Medical Information
 
-    Label(frame1, text='Medical information', font=('Helvetica', 10, 'bold')).grid(row=12, columnspan=10, pady=(10, 0))
+    Label(frame1, text='Medical information', font=('Helvetica', 10, 'bold')).grid(row=12, columnspan=10)
     Label(frame1, text='Blood Type').grid(row=13, column=0)
     Label(frame1, text='Organ to Donate').grid(row=14, column=0)
     Label(frame1, text='Medical Conditions').grid(row=15, column=0)
@@ -167,47 +166,45 @@ def RegisterForOrganDonation():
 
     global medicalCondition
     medicalCondition=IntVar()
-    Checkbutton(frame1, text='Diabetes', command=medical_condition, onvalue='Diabetes', offvalue='').grid(row=15, column=1, sticky='w',padx=(0, 5))
-    Checkbutton(frame1, text='Asthma', command=medical_condition, onvalue='Asthma', offvalue='').grid(row=15, column=2,sticky='w',padx=(0, 5))
-    Checkbutton(frame1, text='Cataract', command=medical_condition, onvalue='Cataract', offvalue='').grid(row=15, column=3,sticky='w',padx=(0, 5))
-    Checkbutton(frame1, text='Arthritis',command=medical_condition, onvalue='Arthritis', offvalue='').grid(row=15, column=4,sticky='w',padx=(0, 5))
+    Checkbutton(frame1, text='Diabetes', command=medical_condition, onvalue='Diabetes').grid(row=15, column=1,sticky='w')
+    Checkbutton(frame1, text='Asthma', command=medical_condition, onvalue='Asthma').grid(row=15, column=2,sticky='w')
+    Checkbutton(frame1, text='Cataract', command=medical_condition, onvalue='Cataract').grid(row=15, column=3,sticky='w')
+    Checkbutton(frame1, text='Arthritis',command=medical_condition, onvalue='Arthritis').grid(row=15, column=4,sticky='w')
 
-    Label(frame1, text='Previous Surgeries').grid(row=16, column=0,pady=(10, 0))
+    Label(frame1, text='Previous Surgeries').grid(row=16, column=0)
     previous_surgeries_entry = Text(frame1, height=2, width=50)
-    previous_surgeries_entry.grid(row=16, column=1, columnspan=2,sticky='w')
+    previous_surgeries_entry.grid(row=16, column=1, columnspan=2,pady=(3, 0),sticky='w')
 
-    Label(frame1, text='Medications Currently Taking').grid(row=17, column=0, pady=(10, 0))
+    Label(frame1, text='Medications Currently Taking').grid(row=17, column=0)
     medications_entry = Text(frame1, height=2, width=50)
-    medications_entry.grid(row=17, column=1, columnspan=2, pady=(10, 0),sticky='w')
+    medications_entry.grid(row=17, column=1, columnspan=2,pady=(3, 0),sticky='w')
 
-    Label(frame1, text='Allergies').grid(row=18, column=0, pady=(10, 0))
+    Label(frame1, text='Allergies').grid(row=18, column=0)
     allergies_entry = Text(frame1, height=2, width=50)
-    allergies_entry.grid(row=18, column=1, columnspan=2, pady=(10, 0),sticky='w')
+    allergies_entry.grid(row=18, column=1, columnspan=2,pady=(3, 0),sticky='w')
 
     # Section 3 - Lifestyle Information
 
     Label(frame1, text='Lifestyle information', font=('Helvetica', 10, 'bold')).grid(row=19, columnspan=10,pady=(10,0))
-    Label(frame1, text='Percentage of Alcohol Consumption').grid(row=20, column=0)
     Label(frame1, text='Smoking').grid(row=21, column=0)
 
-    global alcoholConsumption
-    alcoholConsumption = IntVar()
-    Scale(frame1, from_=0, to=100, orient=HORIZONTAL,variable=alcoholConsumption).grid(row=20,column=1,sticky='w')
+    Checkbutton(frame1).grid(row=22,column=0,sticky='e')
+    Label(frame1, text='I accept the Terms and Conditions of the Donor Registration Agreement and the National Organ Donation Committee policy').grid(row=22, column=1)
 
     global smoking
     smoking = IntVar()
-    Radiobutton(frame1,text='Regular',value=0,command=lifestyle_info_used).grid(row=21,column=1,sticky='w')
-    Radiobutton(frame1,text='Occassional',value=1,command=lifestyle_info_used).grid(row=21,column=2,sticky='w')
-    Radiobutton(frame1,text='Never',value=2,command=lifestyle_info_used).grid(row=21,column=3,sticky='w')
+    Radiobutton(frame1,text='Regular',variable=smoking,value=0,command=lifestyle_info_used).grid(row=21,column=1,sticky='w')
+    Radiobutton(frame1,text='Occassional',variable=smoking,value=1,command=lifestyle_info_used).grid(row=21,column=2,sticky='w')
+    Radiobutton(frame1,text='Never',variable=smoking,value=2,command=lifestyle_info_used).grid(row=21,column=3,sticky='w')
 
     # Upload and Submit Buttons
 
     uploadDocument=Button(frame1,text='Upload Death Certificate', font=('Helvetica', 10, 'bold'), fg='Black', bg='Medium Purple',command=UploadDoc,width=20)
-    uploadDocument.grid(row=22,column=1,pady=20,padx=40)
+    uploadDocument.grid(row=23,column=1,pady=20)
 
     submitButton = Button(frame1,text='Submit', font=('Helvetica', 10, 'bold'), fg='Black', bg='Medium Purple',
                           command= onAddDonor,width=20)
-    submitButton.grid(row=22,column=2,pady=20,padx=40)
+    submitButton.grid(row=23,column=2)
 
     mainwindow.withdraw()
 
