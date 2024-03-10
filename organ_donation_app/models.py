@@ -16,8 +16,7 @@ class Donor(models.Model):
     previousSurgery = models.CharField(max_length=100,default='Nil')
     medicationEntries = models.CharField(max_length=100,default='Nil')
     allergyEntries = models.CharField(max_length=100,default='Nil')
-    smokingPercentage = models.IntegerField(default=0)
-    alcoholConsumptionStatus= models.CharField(max_length=10,default='Never')
+    smokingStatus = models.CharField(max_length=10,default='Never')
 
     def _str_(self):
         return self.firstName
