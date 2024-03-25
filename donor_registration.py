@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
+from PIL import Image, ImageTk
+
 # from tkcalendar import Calendar
 import os
 import django
@@ -92,7 +94,7 @@ def RegisterForOrganDonation():
     # Frame of Donor Form
 
     frame1 = Frame(window1, width=300, height=900, highlightbackground='black', highlightthickness=1.5)
-    frame1.grid(padx=90, pady=20)
+    frame1.grid(padx=290, pady=60)
 
     # Section 1 - Personal Information
 
@@ -287,17 +289,28 @@ def HospitalScreen():
 
 
 # Main Screen 
-    
+
 mainwindow = Tk()
 mainwindow.title('Organ Donation')
 mainwindow.geometry('1000x1000')
+
+mainImagePath="img2.jpg"
+img=Image.open(mainImagePath)
+img=img.resize((1000,1000))
+
+img_tk = ImageTk.PhotoImage(img)
+
+img_label = Label(mainwindow, image=img_tk)
+img_label.place(x=0, y=0, relwidth=1, relheight=1) 
+
+img_label.image = img_tk
     
 btn1 = Button(text='Register for Organ Donation', fg='white', bg='blue', font=('Helvetica', 12),
               command=RegisterForOrganDonation)
-btn1.place(x=300, y=300)
+btn1.place(x=500, y=300)
 
 btn2 = Button(text='Get Eligible Organ Donors', fg='white', bg='blue', font=('Helvetica', 12),
               command=HospitalScreen)
-btn2.place(x=550, y=300)
+btn2.place(x=750, y=300)
 
 mainwindow.mainloop()
