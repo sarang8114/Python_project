@@ -305,11 +305,11 @@ img_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 img_label.image = img_tk
     
-btn1 = Button(text='Register for Organ Donation', fg='white', bg='blue', font=('Helvetica', 12),
+btn1 = Button(text='Register for Organ Donation', fg='white', bg='navy', font=('Helvetica', 12),
               command=RegisterForOrganDonation)
 btn1.place(x=500, y=300)
 
-btn2 = Button(text='Get Eligible Organ Donors', fg='white', bg='blue', font=('Helvetica', 12),
+btn2 = Button(text='Get Eligible Organ Donors', fg='white', bg='navy', font=('Helvetica', 12),
               command=HospitalScreen)
 btn2.place(x=750, y=300)
 
